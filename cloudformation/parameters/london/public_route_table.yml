@@ -1,0 +1,3 @@
+FriendlyName: Public Routing Table
+vpc_id:
+  stack_output: virtual-private-cloud/vpc_id

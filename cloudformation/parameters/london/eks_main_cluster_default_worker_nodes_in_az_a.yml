@@ -1,0 +1,34 @@
+cluster_name: 
+  stack_output: eks-main-cluster/cluster_name
+group_name: default
+bootstrap_arguments: "--kubelet-extra-args '--node-labels=group-name=default'"
+
+min_size: 1
+max_size: 5
+
+instance_type: t3.medium
+root_volume_size: 100
+key_name: jamesbjackson
+monitoring: true
+ebs_optimized: true
+
+security_groups:
+  - stack_output: eks-main-cluster/worker_node_security_group_id
+subnets:
+  - stack_output: kubernetes-main-cluster-worker-nodes-subnets-01/subnet_az_a
+instance_profile:
+  - stack_output: eks-main-cluster/worker_node_instance_profile_id
+sns_topic:
+  - stack_output: eks-main-cluster/sns_topic_id    
+
+image_id:
+  latest_ami:
+    owners: 602401143452
+    filters:
+      name: amazon-eks-node-1.12*
+
+compile_time_parameters:
+  group_tags:
+    - Environment=production
+    - KubernetesCluster=main
+    - WorkerNodeGroup=default      

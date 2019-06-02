@@ -1,0 +1,31 @@
+compile_time_parameters:
+  resource_name:
+    - subnet_az_a
+    - subnet_az_b
+    - subnet_az_c
+  availability_zone:
+    - eu-west-2a
+    - eu-west-2b
+    - eu-west-2c
+  cidr_block:
+    - 10.0.1.0/24
+    - 10.0.2.0/24
+    - 10.0.3.0/24
+  friendly_name:
+    - Kubernetes Control Plane (AZ A)
+    - Kubernetes Control Plane (AZ B)
+    - Kubernetes Control Plane (AZ C)
+  map_public_ip_on_launch:
+    - 'false'
+    - 'false'
+    - 'false'   
+  route_table_id:
+    - stack_output: private-route-table/route_table_id
+    - stack_output: private-route-table/route_table_id
+    - stack_output: private-route-table/route_table_id
+  vpc_id:
+    - stack_output: virtual-private-cloud/vpc_id
+    - stack_output: virtual-private-cloud/vpc_id
+    - stack_output: virtual-private-cloud/vpc_id  
+  tags:
+    - "kubernetes.io/cluster/main=shared"

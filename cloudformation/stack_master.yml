@@ -1,0 +1,56 @@
+template_dir: ../sparkleformation/templates
+
+stack_defaults:
+  on_failure: "DELETE"
+  compiler_options:
+    sparkle_path: ../sparkleformation
+
+region_aliases:
+  london: eu-west-2
+  
+stacks:
+  london:
+
+    # Virtual Private Cloud (VPC)
+    virtual-private-cloud:
+      template: ec2/vpc.rb
+
+    # Internet Gateway 
+    internet-gateway:
+      template: ec2/internet_gateway.rb
+  
+    # Routing Table
+    public-route-table:
+      template: ec2/route_table.rb
+    private-route-table:
+      template: ec2/route_table.rb
+    public-route-table-internet-access:
+      template: ec2/route.rb
+    private-route-table-internet-access:
+      template: ec2/route.rb    
+
+    # Route53 Hosted Zone
+    hosted-zone:
+      template: route53/hosted_zone.rb
+
+    # IAM Polices  
+    kubernetes-managed-polices:
+      template: eks/managed-polices.rb
+
+    # Elastic Kubernetes Service (EKS) Subnets  
+    kubernetes-main-cluster-control-plane-subnets-01:
+      template: ec2/subnets.rb
+    kubernetes-main-cluster-worker-nodes-subnets-01:
+      template: ec2/subnets.rb      
+    kubernetes-main-cluster-lb-subnets-01:
+      template: ec2/subnets.rb    
+   
+    # Elastic Kubernetes Service (EKS) Control Plane
+    eks-main-cluster:
+      template: eks/cluster.rb 
+
+    # Elastic Kubernetes Service (EKS) Worker Nodes
+    eks_main-cluster-default-worker-nodes-in-az-a:
+      template: eks/worker-nodes.rb  
+    eks_main-cluster-default-worker-nodes-in-az-b:
+      template: eks/worker-nodes.rb

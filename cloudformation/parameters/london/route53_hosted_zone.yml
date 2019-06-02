@@ -1,0 +1,6 @@
+domain_name: ei.local
+compile_time_parameters:
+  vpcs:
+    - stack_output: virtual-private-cloud/vpc_id
+  vpc_regions:
+    - us-west-2

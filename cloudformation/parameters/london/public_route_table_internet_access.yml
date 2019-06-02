@@ -1,0 +1,5 @@
+destination_cidr_block: 0.0.0.0/0
+gateway_id:
+  stack_output: internet-gateway/internet_gateway_id
+route_table_id:
+  stack_output: public-route-table/route_table_id

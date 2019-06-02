@@ -1,0 +1,17 @@
+cluster_name: main
+cluster_version: 1.12
+sns_email: james@connectedproducts.io
+
+subnets:
+  - stack_output: kubernetes-main-cluster-control-plane-subnets-01/subnet_az_a
+  - stack_output: kubernetes-main-cluster-control-plane-subnets-01/subnet_az_b
+  - stack_output: kubernetes-main-cluster-control-plane-subnets-01/subnet_az_c
+vpc_id:
+  stack_output: virtual-private-cloud/vpc_id
+
+compile_time_parameters:
+  worker_role_polices:
+    - stack_output: kubernetes-managed-polices/cluster_autoscaler_policy_id
+    - stack_output: kubernetes-managed-polices/external_dns_controller_policy_id
+    - stack_output: kubernetes-managed-polices/aws_alb_ingress_controller_policy_id
+

@@ -1,0 +1,31 @@
+compile_time_parameters:
+  resource_name:
+    - subnet_az_a
+    - subnet_az_b
+    - subnet_az_c
+  availability_zone:
+    - eu-west-2a
+    - eu-west-2b
+    - eu-west-2c
+  cidr_block:
+    - 10.0.4.0/24
+    - 10.0.5.0/24
+    - 10.0.6.0/24
+  friendly_name:
+    - Kubernetes Worker Nodes (AZ A)
+    - Kubernetes Worker Nodes (AZ B)
+    - Kubernetes Worker Nodes (AZ C)
+  map_public_ip_on_launch:
+    - 'false'
+    - 'false'
+    - 'false'   
+  route_table_id:
+    - stack_output: private-route-table/route_table_id
+    - stack_output: private-route-table/route_table_id
+    - stack_output: private-route-table/route_table_id
+  vpc_id:
+    - stack_output: virtual-private-cloud/vpc_id
+    - stack_output: virtual-private-cloud/vpc_id
+    - stack_output: virtual-private-cloud/vpc_id  
+  tags:
+    - "kubernetes.io/cluster/main=shared"

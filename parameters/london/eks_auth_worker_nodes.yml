@@ -1,0 +1,4 @@
+cluster_name: 
+  stack_output: eks-main-cluster/cluster_name
+instance_profile:
+  stack_output: eks-main-cluster/worker_node_instance_profile_id

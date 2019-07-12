@@ -1,7 +1,6 @@
 SparkleFormation.new(:elastic_ip_address).load(:base).overrides do
     description "EC2 - Reserved Static Public IP Addresses"
 
-
     resources do 
 
       ip_address do

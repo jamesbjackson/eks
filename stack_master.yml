@@ -1,9 +1,9 @@
-template_dir: ../sparkleformation/templates
+template_dir: sparkleformation/templates
 
 stack_defaults:
   on_failure: "DELETE"
   compiler_options:
-    sparkle_path: ../sparkleformation
+    sparkle_path: sparkleformation
 
 region_aliases:
   london: eu-west-2

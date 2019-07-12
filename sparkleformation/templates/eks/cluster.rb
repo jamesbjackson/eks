@@ -1,73 +1,37 @@
-SparkleFormation.new(:eks_cluster).load(:template_base).overrides do
+SparkleFormation.new(:eks_cluster).load(:base).overrides do
 	description "EKS Cluster"
 
   parameters.cluster_name do
     description 'The name of the eks cluster'
-    registry!(:string_aws_parameter_type)
+    type registry!(:string)
   end
 
   # See https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html
   parameters.cluster_version do
     description 'The version of the EKS Cluster'
-    registry!(:string_aws_parameter_type)
-    default '1.12'
+    type registry!(:string)
+    default '1.13'
   end
 
   parameters.subnets do
     description 'Specify at least 2 subnets for your Amazon EKS worker nodes'
-    registry!(:comma_delimited_list_aws_parameter_type)
+    type registry!(:comma_delimited_list)
   end
 
   parameters.vpc_id do
     description 'The ID of the VPC'
-    registry!(:vpc_id_aws_parameter_type)
+    type registry!(:vpc_id)
   end
 
   parameters.sns_email do
     description 'Email to send notifications'
-    registry!(:string_aws_parameter_type)
+    type registry!(:string)
     default 'dev-ops@electricimp.com'
   end
   
   #---------------------------------------------------------
   # IAM Service Role
   #---------------------------------------------------------  
-
-  resources.eks_automation_lambda_function_iam_role do 
-    type "AWS::IAM::Role"
-    properties do
-      policies _array(
-        -> {
-          policy_name 'elastic_kubernetes_service'
-          policy_document.version '2012-10-17'
-          policy_document.statement _array(
-            -> {
-              effect 'Allow'
-              action _array(
-                'eks:Describe*',
-                'eks:List*',
-                'eks:Update*',
-              )
-              resource '*'
-            }
-          )
-        }
-      )
-      assume_role_policy_document do
-        version '2012-10-17'
-        statement _array(
-          -> {
-            effect 'Allow'
-            principal.service 'lambda.amazonaws.com'
-            action 'sts:AssumeRole'
-          }
-        )
-      end
-      managed_policy_arns _array(
-        "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-      )
-    end                
-  end
 
   resources.cluster_administration_iam_role do 
     type "AWS::IAM::Role"
@@ -213,7 +177,7 @@ SparkleFormation.new(:eks_cluster).load(:template_base).overrides do
     properties do
       from_port 443
       to_port 443
-      ip_protocol registry!(:tcp_ip_protocol)
+      ip_protocol registry!(:tcp)
       source_security_group_id ref!(:worker_node_security_group)
       group_id ref!(:control_plane_security_group)
     end
@@ -228,7 +192,7 @@ SparkleFormation.new(:eks_cluster).load(:template_base).overrides do
     properties do
       from_port 1025
       to_port 65535
-      ip_protocol registry!(:tcp_ip_protocol)
+      ip_protocol registry!(:tcp)
       destination_security_group_id ref!(:worker_node_security_group)
       group_id ref!(:control_plane_security_group)
     end
@@ -259,7 +223,7 @@ SparkleFormation.new(:eks_cluster).load(:template_base).overrides do
     properties do
       from_port 443
       to_port 443
-      ip_protocol registry!(:tcp_ip_protocol)
+      ip_protocol registry!(:tcp)
       source_security_group_id ref!(:control_plane_security_group)
       group_id ref!(:worker_node_security_group)
     end
@@ -274,7 +238,7 @@ SparkleFormation.new(:eks_cluster).load(:template_base).overrides do
     properties do
       from_port 1025
       to_port 65535
-      ip_protocol registry!(:tcp_ip_protocol)
+      ip_protocol registry!(:tcp)
       source_security_group_id ref!(:control_plane_security_group)
       group_id ref!(:worker_node_security_group)
     end
@@ -290,7 +254,7 @@ SparkleFormation.new(:eks_cluster).load(:template_base).overrides do
       from_port -1
       to_port -1
       ip_protocol -1
-      cidr_ip registry!(:internet_wide_communication_cidr)
+      cidr_ip "0.0.0.0/0"
       group_id ref!(:worker_node_security_group)
     end
     depends_on depends_on!(:worker_node_security_group)

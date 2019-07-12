@@ -25,7 +25,7 @@ image_id:
   latest_ami:
     owners: 602401143452
     filters:
-      name: amazon-eks-node-1.12*
+      name: amazon-eks-node-1.13*
 
 compile_time_parameters:
   group_tags:

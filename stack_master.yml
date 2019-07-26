@@ -11,6 +11,10 @@ region_aliases:
 stacks:
   london:
 
+    # Rancher KOPS S3 Bucket for State Management.   
+    rancher-kops-s3-bucket:
+      template: s3/bucket.rb
+
     # Virtual Private Cloud (VPC)
     virtual-private-cloud:
       template: ec2/vpc.rb
@@ -29,28 +33,20 @@ stacks:
     private-route-table-internet-access:
       template: ec2/route.rb    
 
-    # Route53 Hosted Zone
-    hosted-zone:
-      template: route53/hosted_zone.rb
-
     # IAM Polices  
     kubernetes-managed-polices:
       template: eks/managed-polices.rb
 
-    # Elastic Kubernetes Service (EKS) Subnets  
-    kubernetes-main-cluster-control-plane-subnets-01:
+    # Elastic Kubernetes Service (EKS) Main Cluster  
+    eks-main-control-plane-subnets-01:
       template: ec2/subnets.rb
-    kubernetes-main-cluster-worker-nodes-subnets-01:
+    eks-main-lb-subnets-01:
+      template: ec2/subnets.rb  
+    eks-main-worker-nodes-subnets-01:
       template: ec2/subnets.rb      
-    kubernetes-main-cluster-lb-subnets-01:
-      template: ec2/subnets.rb    
-   
-    # Elastic Kubernetes Service (EKS) Control Plane
-    eks-main-cluster:
-      template: eks/cluster.rb 
-
-    # Elastic Kubernetes Service (EKS) Worker Nodes
-    eks_main-cluster-default-worker-nodes-in-az-a:
+    eks-main-control-plane:
+      template: eks/control-plane.rb 
+    eks-main-default-worker-nodes-in-az-a:
       template: eks/worker-nodes.rb  
-    eks_main-cluster-default-worker-nodes-in-az-b:
+    eks-main--default-worker-nodes-in-az-b:
       template: eks/worker-nodes.rb

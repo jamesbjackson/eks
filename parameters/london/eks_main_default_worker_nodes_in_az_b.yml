@@ -1,5 +1,5 @@
 cluster_name: 
-  stack_output: eks-main-cluster/cluster_name
+  stack_output: eks-main-control-plane/cluster_name
 group_name: default
 bootstrap_arguments: "--kubelet-extra-args '--node-labels=group-name=default'"
 
@@ -13,13 +13,13 @@ monitoring: true
 ebs_optimized: true
 
 security_groups:
-  - stack_output: eks-main-cluster/worker_node_security_group_id
-subnets:
-  - stack_output: kubernetes-main-cluster-worker-nodes-subnets-01/subnet_az_b
+  - stack_output: eks-main-control-plane/worker_node_security_group_id
 instance_profile:
-  - stack_output: eks-main-cluster/worker_node_instance_profile_id
+  - stack_output: eks-main-control-plane/worker_node_instance_profile_id
 sns_topic:
-  - stack_output: eks-main-cluster/sns_topic_id     
+  - stack_output: eks-main-control-plane/sns_topic_id
+subnets:
+  - stack_output: eks-main-worker-nodes-subnets-01/subnet_az_b       
 
 image_id:
   latest_ami:

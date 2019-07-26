@@ -8,13 +8,13 @@ compile_time_parameters:
     - eu-west-2b
     - eu-west-2c
   cidr_block:
-    - 10.0.7.0/24
-    - 10.0.8.0/24
-    - 10.0.9.0/24
+    - 10.0.0.0/24
+    - 10.0.1.0/24
+    - 10.0.2.0/24
   friendly_name:
-    - Kubernetes Main Cluster Load Balancers (AZ A)
-    - Kubernetes Main Cluster Load Balancers (AZ B)
-    - Kubernetes Main Cluster Load Balancers (AZ C)
+    - EKS Main Control Plane (AZ A)
+    - EKS Main Control Plane (AZ B)
+    - EKS Main Control Plane (AZ C)
   map_public_ip_on_launch:
     - 'false'
     - 'false'
@@ -26,9 +26,6 @@ compile_time_parameters:
   vpc_id:
     - stack_output: virtual-private-cloud/vpc_id
     - stack_output: virtual-private-cloud/vpc_id
-    - stack_output: virtual-private-cloud/vpc_id
+    - stack_output: virtual-private-cloud/vpc_id  
   tags:
     - "kubernetes.io/cluster/main=shared"
-    - "kubernetes.io/role/alb-ingress=1"
-    - "kubernetes.io/role/internal-elb=1"
-    - "kubernetes.io/role/elb=1" 

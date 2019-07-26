@@ -1,0 +1,4 @@
+bucket_name: cpio-kops-rauncher
+access_control: Private
+versioning_state: Enabled
+  

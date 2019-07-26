@@ -1,7 +1,7 @@
 SparkleFormation.new(:vpc_private_hosted_zone, compile_time_parameters: {
   vpcs: {type: :string, multiple: true},
   vpc_regions: {type: :string, multiple: true},
-}).load(:template_base).overrides do
+}).load(:base).overrides do
   description "Route53 - Hosted Zone"
 
   raise(ArgumentError, "Unequal number of VPCs and regions") if state!(:vpcs).length != state!(:vpc_regions).length

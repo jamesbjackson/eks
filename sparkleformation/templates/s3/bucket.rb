@@ -1,25 +1,28 @@
 SparkleFormation.new(:bucket, compile_time_parameters: {
   allow_elb_writes_from_region: {type: :string, default: ''},
   access_log_path: {type: :string, default: ''},
-}).load(:template_base).overrides do
+}).load(:base).overrides do
   description "S3 - Bucket"
 
   parameters do
-    access_control do
-      description 'access control list (ACL) that grants predefined permissions to the bucket.'
-      registry!(:s3_bucket_access_control_parameter_constraint)
-      registry!(:string_aws_parameter_type)
-      registry!(:s3_bucket_access_control_parameter_default)
-    end
     bucket_name do
       description 'A unique name for the bucket'
-      registry!(:string_aws_parameter_type)
+      type registry!(:string)
     end
+    access_control do
+      description 'access control list (ACL) that grants predefined permissions to the bucket.'
+      registry!(:s3_bucket_access_control_constraint)
+      type registry!(:string)
+      default 'Private'
+    end
+
     versioning_state do
       description 'The versioning state of the bucket.'
-      registry!(:s3_bucket_versioning_parameter_constraint)
-      registry!(:string_aws_parameter_type)
-      registry!(:s3_bucket_versioning_parameter_default)
+      registry!(:s3_bucket_versioning_constraint)
+      type registry!(:string)
+      default 'Suspended'
+      
+      
     end
   end
 

@@ -3,9 +3,9 @@ cluster_version: 1.13
 sns_email: jamesbjackson@gmail.com
 
 subnets:
-  - stack_output: kubernetes-main-cluster-control-plane-subnets-01/subnet_az_a_id
-  - stack_output: kubernetes-main-cluster-control-plane-subnets-01/subnet_az_b_id
-  - stack_output: kubernetes-main-cluster-control-plane-subnets-01/subnet_az_c_id
+  - stack_output: eks-main-control-plane-subnets-01/subnet_az_a_id
+  - stack_output: eks-main-control-plane-subnets-01/subnet_az_b_id
+  - stack_output: eks-main-control-plane-subnets-01/subnet_az_c_id
 vpc_id:
   stack_output: virtual-private-cloud/vpc_id
 

@@ -1,0 +1,4 @@
+hostname: rancher.connectedproducts.io
+ingress.tls.source:	letsEncrypt
+letsEncrypt.email: jamesbjackson@gmail.com
+letsEncrypt.environment: production

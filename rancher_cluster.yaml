@@ -1,0 +1,83 @@
+apiVersion: kops/v1alpha2
+kind: Cluster
+metadata:
+  creationTimestamp: 2019-07-29T12:39:50Z
+  name: kops-rancher.connectedproducts.io
+spec:
+  additionalPolicies:
+    node: |
+      [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "acm:ListCertificates",
+            "acm:DescribeCertificate",
+            "autoscaling:DescribeAutoScalingGroups",
+            "autoscaling:DescribeLoadBalancerTargetGroups",
+            "autoscaling:AttachLoadBalancers",
+            "autoscaling:DetachLoadBalancers",
+            "autoscaling:DetachLoadBalancerTargetGroups",
+            "autoscaling:AttachLoadBalancerTargetGroups",
+            "cloudformation:*",
+            "elasticloadbalancing:*",
+            "elasticloadbalancingv2:*",
+            "ec2:DescribeInstances",
+            "ec2:DescribeSubnets",
+            "ec2:DescribeSecurityGroups",
+            "ec2:DescribeRouteTables",
+            "ec2:DescribeVpcs",
+            "iam:GetServerCertificate",
+            "iam:ListServerCertificates"
+          ],
+          "Resource": ["*"]
+        }
+      ]
+  api:
+    dns: {}
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudLabels:
+    kubernetes.io/cluster/kops-rancher.connectedproducts.io: owned
+  cloudProvider: aws
+  configBase: s3://cpio-kops-rauncher/kops-rancher.connectedproducts.io
+  etcdClusters:
+  - cpuRequest: 200m
+    etcdMembers:
+    - instanceGroup: master-eu-west-2a
+      name: a
+    memoryRequest: 100Mi
+    name: main
+  - cpuRequest: 100m
+    etcdMembers:
+    - instanceGroup: master-eu-west-2a
+      name: a
+    memoryRequest: 100Mi
+    name: events
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  kubelet:
+    anonymousAuth: false
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  kubernetesVersion: 1.12.8
+  masterInternalName: api.internal.kops-rancher.connectedproducts.io
+  masterPublicName: api.kops-rancher.connectedproducts.io
+  networkCIDR: 172.20.0.0/16
+  networking:
+    weave:
+      mtu: 8912
+  nonMasqueradeCIDR: 100.64.0.0/10
+  sshAccess:
+  - 0.0.0.0/0
+  subnets:
+  - cidr: 172.20.32.0/19
+    name: eu-west-2a
+    type: Public
+    zone: eu-west-2a
+  topology:
+    dns:
+      type: Public
+    masters: public
+    nodes: public
